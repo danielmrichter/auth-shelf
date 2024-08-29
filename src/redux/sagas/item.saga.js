@@ -3,14 +3,14 @@ import axios from "axios";
 
 function* deleteItem(action) {
   yield axios.delete(`/api/shelf/${action.payload}`);
-  yield put({ type: "GET_ITEMS" });
+  yield put({ type: "FETCH_SHELF" });
 }
 
 function* addItem(action) {
   try {
     console.log(action.payload);
     yield axios.post("/api/shelf", action.payload);
-    yield put({ type: "GET_ITEMS" });
+    yield put({ type: "FETCH_SHELF" });
   } catch (error) {
     console.log("Error sending item:", error);
   }

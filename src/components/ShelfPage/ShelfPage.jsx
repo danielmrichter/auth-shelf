@@ -2,10 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ShelfForm from "../ShelfForm/ShelfForm";
+import DeleteItemButton from "../DeleteItemButton/DeleteItemButton.jsx";
 
 function ShelfPage() {
   const dispatch = useDispatch();
   const shelf = useSelector((store) => store.shelf);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
     fetchShelf();
@@ -30,6 +32,7 @@ function ShelfPage() {
             <tr>
               <th>Description</th>
               <th>Image</th>
+              <th></th>
             </tr>
           </thead>
 
@@ -42,6 +45,11 @@ function ShelfPage() {
                       <td>{item.description}</td>
                       <td>
                         <img src={item.image_url} />
+                      </td>
+                      <td>
+                        {item.user_id === user.id && (
+                          <DeleteItemButton id={item.id} />
+                        )}
                       </td>
                     </tr>
                   );
