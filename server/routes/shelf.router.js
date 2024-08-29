@@ -20,6 +20,22 @@ router.get('/', (req, res) => {
     res.sendStatus(500);
   })
 });
+// GET my items to my shelf
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  sqlText = `
+  SELECT * FROM "item"
+  WHERE "user_id" = $1;
+  `
+  sqlValues = [req.user.id]
+
+  pool.query(sqlText, sqlValues)
+  .then((result) => {
+    res.send(result.rows)
+  }) .catch((err) => {
+    console.log('Server GET error:', err)
+    res.sendStatus(500)
+  })
+})
 
 /**
  * Add an item for the logged in user to the shelf

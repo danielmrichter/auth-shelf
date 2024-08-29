@@ -13,14 +13,16 @@ import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-import AboutPage from "../AboutPage/AboutPage";
-import UserPage from "../UserPage/UserPage";
-import ShelfPage from "../ShelfPage/ShelfPage";
-import LandingPage from "../LandingPage/LandingPage";
-import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
+import AboutPage from '../AboutPage/AboutPage';
+import UserPage from '../UserPage/UserPage';
+import ShelfPage from '../ShelfPage/ShelfPage';
+import LandingPage from '../LandingPage/LandingPage';
+import LoginPage from '../LoginPage/LoginPage';
+import RegisterPage from '../RegisterPage/RegisterPage';
+import MyShelfPage from '../MyShelfPage/MyShelfPage';
 
 import "./App.css";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -66,11 +68,26 @@ function App() {
             path="/shelf"
           >
             <ShelfPage />
+<<<<<<< HEAD
+          </ProtectedRoute>
+            <ProtectedRoute
+            exact path ="/myshelf"
+            >
+              <MyShelfPage />
+            </ProtectedRoute>
+          <Route
+            exact
+            path="/login"
+          >
+            {user.id ?
+              // If the user is already logged in, 
+=======
           </Route>
 
           <Route exact path="/login">
             {user.id ? (
               // If the user is already logged in,
+>>>>>>> main
               // redirect to the /user page
               <Redirect to="/user" />
             ) : (
