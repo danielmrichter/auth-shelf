@@ -1,9 +1,9 @@
-const shelfReducer = (state = {}, action) => {
+const shelfReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SHELF':
             return action.payload;
         case 'UNSET_SHELF':
-            return {};
+            return [];
         default:
             return state;
         }
