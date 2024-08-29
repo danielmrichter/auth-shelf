@@ -23,7 +23,7 @@ function ShelfPage() {
 
   return (
     <div>
-      <ShelfForm />
+      {user.id && <ShelfForm />}
       <div className="container">
         <h2>Shelf</h2>
         <p>All of the available items can be seen here.</p>
