@@ -68,8 +68,7 @@ function App() {
             path="/shelf"
           >
             <ShelfPage />
-<<<<<<< HEAD
-          </ProtectedRoute>
+          </Route>
             <ProtectedRoute
             exact path ="/myshelf"
             >
@@ -79,15 +78,9 @@ function App() {
             exact
             path="/login"
           >
-            {user.id ?
+            {user.id ?(
               // If the user is already logged in, 
-=======
-          </Route>
 
-          <Route exact path="/login">
-            {user.id ? (
-              // If the user is already logged in,
->>>>>>> main
               // redirect to the /user page
               <Redirect to="/user" />
             ) : (
