@@ -47,18 +47,18 @@ pool.query(query, sqlValues)
 /**
  * Delete an item if it's something the logged in user added
  */
-// router.delete("/:id", rejectUnauthenticated, (req, res) => {
-//   const sqlText = `DELETE FROM "item"
-//     WHERE "id" = $1`;
-//   const sqlValues = [req.params.id];
-//   pool
-//     .query(sqlText, sqlValues)
-//     .then((dbRes) => res.sendStatus(200))
-//     .catch((dbErr) => {
-//       console.log(`SQL Error in DELETE/api/shelf`);
-//       res.sendStatus(500);
-//     });
-// });
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
+  const sqlText = `DELETE FROM "item"
+    WHERE "id" = $1`;
+  const sqlValues = [req.params.id];
+  pool
+    .query(sqlText, sqlValues)
+    .then((dbRes) => res.sendStatus(200))
+    .catch((dbErr) => {
+      console.log(`SQL Error in DELETE/api/shelf`, dbErr);
+      res.sendStatus(500);
+    });
+});
 
 /**
  * Update an item if it's something the logged in user added
