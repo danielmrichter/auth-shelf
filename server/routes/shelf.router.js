@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post("/", (req, res) => {
+router.post("/", rejectUnauthenticated, (req, res) => {
   console.log('item being added is:', req.body, 'with user:', req.user.id)
 const query = `
 INSERT INTO "item"
