@@ -7,7 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 /**
  * Get all of the items on the shelf
  */
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/', (req, res) => {
   sqlText = `
     SELECT * FROM "item"
     ORDER BY "id";`
@@ -71,7 +71,7 @@ router.delete("/:id", rejectUnauthenticated, (req, res) => {
     .query(sqlText, sqlValues)
     .then((dbRes) => res.sendStatus(200))
     .catch((dbErr) => {
-      console.log(`SQL Error in DELETE/api/shelf`);
+      console.log(`SQL Error in DELETE/api/shelf`, dbErr);
       res.sendStatus(500);
     });
 });
