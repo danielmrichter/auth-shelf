@@ -11,6 +11,9 @@ function ShelfForm () {
         event.preventDefault();
 
         dispatch({type: 'ADD_ITEM', payload: { image_url: image_url, description: description }})
+
+        setItemUrl('');
+        setItemDesc('');
     }
 
 return (

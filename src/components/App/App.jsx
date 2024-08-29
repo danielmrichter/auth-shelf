@@ -19,8 +19,10 @@ import ShelfPage from '../ShelfPage/ShelfPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import MyShelfPage from '../MyShelfPage/MyShelfPage';
 
 import './App.css';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -67,7 +69,11 @@ function App() {
           >
             <ShelfPage />
           </ProtectedRoute>
-
+            <ProtectedRoute
+            exact path ="/myshelf"
+            >
+              <MyShelfPage />
+            </ProtectedRoute>
           <Route
             exact
             path="/login"
