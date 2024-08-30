@@ -2,7 +2,19 @@ const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware')
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const multer = require('multer');
+const cloudinary = require('../modules/cloudinary')
 
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+      folder: 'auth_images',
+  }
+})
+
+const upload = multer({ storage: storage });
 
 /**
  * Get all of the items on the shelf
@@ -81,5 +93,16 @@ router.get("/count", (req, res) => {
 router.get("/:id", (req, res) => {
   // endpoint functionality
 });
+
+
+// router.post('/upload', upload.single('file', async (req, res) => {
+//   console.log('This is req.file:', req.file);
+//   try {
+//       console.log('OMG! ITS COMING THRU:', req.file.path);
+//       // res.json(req.file.path)
+//   } catch (error) {
+//       console.log('SERVER upload error:', error);
+//   }
+// }))
 
 module.exports = router;

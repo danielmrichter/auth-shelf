@@ -1,8 +1,8 @@
-const shelfReducer = (state = [], action) => {
+const galleryReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_SHELF':
+        case 'SET_GALLERY':
             return action.payload;
-        case 'UNSET_SHELF':
+        case 'UNSET_GALLERY':
             return [];
         default:
             return state;
@@ -11,4 +11,4 @@ const shelfReducer = (state = [], action) => {
 
   // user will be on the redux state at:
   // state.user
-export default shelfReducer;
+export default galleryReducer;
