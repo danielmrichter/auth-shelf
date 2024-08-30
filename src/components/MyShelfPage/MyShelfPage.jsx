@@ -4,42 +4,41 @@ import { useEffect } from "react";
 import ShelfForm from "../ShelfForm/ShelfForm";
 import DeleteItemButton from "../DeleteItemButton/DeleteItemButton.jsx";
 
-function ShelfPage() {
+function MyShelfPage() {
   const dispatch = useDispatch();
-  const shelf = useSelector((store) => store.shelf);
+  const myShelf = useSelector((store) => store.myShelf);
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    fetchShelf();
+    fetchMyShelf();
   }, []);
 
-  const fetchShelf = () => {
+  const fetchMyShelf = () => {
     dispatch({
-      type: "FETCH_SHELF",
+      type: "FETCH_MY_SHELF",
     });
   };
 
-  console.log("shelf in component:", shelf);
+  console.log("shelf in component:", myShelf);
 
   return (
     <div>
-      {user.id && <ShelfForm />}
+      <ShelfForm />
       <div className="container">
-        <h2>Shelf</h2>
-        <p>All of the available items can be seen here.</p>
+        <h2>My Shelf</h2>
+        <p>Your Items are shown here!</p>
         <table>
           <thead>
             <tr>
               <th>Description</th>
               <th>Image</th>
-              <th></th>
             </tr>
           </thead>
 
           <tbody>
-            {!shelf
+            {!myShelf
               ? ""
-              : shelf.map((item) => {
+              : myShelf.map((item) => {
                   return (
                     <tr key={item.id}>
                       <td>{item.description}</td>
@@ -61,4 +60,4 @@ function ShelfPage() {
   );
 }
 
-export default ShelfPage;
+export default MyShelfPage;

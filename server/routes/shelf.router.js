@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 /**
  * Get all of the items on the shelf
  */
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/', (req, res) => {
   sqlText = `
     SELECT * FROM "item"
     ORDER BY "id";`
@@ -32,6 +32,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   })
 });
+// GET my items to my shelf
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  sqlText = `
+  SELECT * FROM "item"
+  WHERE "user_id" = $1;
+  `
+  sqlValues = [req.user.id]
+
+  pool.query(sqlText, sqlValues)
+  .then((result) => {
+    res.send(result.rows)
+  }) .catch((err) => {
+    console.log('Server GET error:', err)
+    res.sendStatus(500)
+  })
+})
 
 /**
  * Add an item for the logged in user to the shelf
@@ -59,18 +75,18 @@ pool.query(query, sqlValues)
 /**
  * Delete an item if it's something the logged in user added
  */
-// router.delete("/:id", rejectUnauthenticated, (req, res) => {
-//   const sqlText = `DELETE FROM "item"
-//     WHERE "id" = $1`;
-//   const sqlValues = [req.params.id];
-//   pool
-//     .query(sqlText, sqlValues)
-//     .then((dbRes) => res.sendStatus(200))
-//     .catch((dbErr) => {
-//       console.log(`SQL Error in DELETE/api/shelf`);
-//       res.sendStatus(500);
-//     });
-// });
+router.delete("/:id", rejectUnauthenticated, (req, res) => {
+  const sqlText = `DELETE FROM "item"
+    WHERE "id" = $1`;
+  const sqlValues = [req.params.id];
+  pool
+    .query(sqlText, sqlValues)
+    .then((dbRes) => res.sendStatus(200))
+    .catch((dbErr) => {
+      console.log(`SQL Error in DELETE/api/shelf`, dbErr);
+      res.sendStatus(500);
+    });
+});
 
 /**
  * Update an item if it's something the logged in user added

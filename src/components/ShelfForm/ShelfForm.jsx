@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import Upload from "./Upload";
 
 function ShelfForm () {
     const [image_url, setItemUrl] = useState('');
@@ -13,6 +12,9 @@ function ShelfForm () {
         event.preventDefault();
 
         dispatch({type: 'ADD_ITEM', payload: { image_url: image_url, description: description, file: file }})
+
+        setItemUrl('');
+        setItemDesc('');
     }
 
 return (
