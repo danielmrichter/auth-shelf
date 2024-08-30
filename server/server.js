@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 require('dotenv').config();
 const PORT = process.env.PORT || 5001;
 
@@ -10,11 +11,13 @@ const passport = require('./strategies/user.strategy');
 // Route Includes
 const userRouter = require('./routes/user.router');
 const shelfRouter = require('./routes/shelf.router');
+const uploadRouter = require('./routes/upload.router');
 
 // Express Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('build'));
+app.use(cors());
 
 // Passport Session Configuration
 app.use(sessionMiddleware);
@@ -26,6 +29,7 @@ app.use(passport.session());
 // Routes
 app.use('/api/user', userRouter);
 app.use('/api/shelf', shelfRouter);
+app.use('/api/upload', uploadRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {
