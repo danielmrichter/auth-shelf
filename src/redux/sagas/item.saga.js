@@ -30,24 +30,21 @@ function* fetchShelf() {
   }
 }
 
-// function* upload(action) {
-//   const file = action.payload.file
-//   console.log('file is:', file);
-//   try {
-//       const data = new FormData();
-//       data.append('file', file);
-//       data.append('description', 'tacoCat')
-//       console.log('This is data:', data);
-//       // const obj = {
-//       //   description: 'tacoCAT',
-//       //   data: data
-//       // }
-//       yield axios.post("/api/upload", data);
-//       // yield put({ type: "GET_ITEMS" });
-//   } catch (error) {
-//       console.log("Error sending file:", error);
-//   }
-// }
+function* upload(action) {
+  const file = action.payload.file
+  console.log('file is:', file);
+  try {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('description', action.payload.description)
+      console.log('This is data:', data);
+      yield axios.post("/api/upload", data);
+      yield put({ type: "FETCH_SHELF" })
+      yield put({ type: "FETCH_MY_SHELF" })
+  } catch (error) {
+      console.log("Error sending file:", error);
+  }
+}
 
 function* fetchMyShelf(action) {
     try {
@@ -63,9 +60,9 @@ function* fetchMyShelf(action) {
 
 function* itemSaga() {
   yield takeLatest("DELETE_ITEM", deleteItem);
-  yield takeLatest("ADD_ITEM", addItem);
+  // yield takeLatest("ADD_ITEM", addItem);
   yield takeLatest("FETCH_SHELF", fetchShelf);
-  // yield takeLatest("ADD_ITEM", upload);
+  yield takeLatest("ADD_ITEM", upload);
   yield takeLatest("FETCH_MY_SHELF", fetchMyShelf);
 
 }
